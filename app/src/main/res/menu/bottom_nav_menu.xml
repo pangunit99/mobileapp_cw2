@@ -5,10 +5,16 @@
         android:icon="@drawable/baseline_home_24"
         android:id="@+id/home"
         android:titleCondensed="Home" />
+
+    <item android:title="Method"
+        android:icon="@drawable/baseline_home_24"
+        android:id="@+id/method"/>
+
     <item android:title="Profile"
         android:icon="@drawable/baseline_home_24"
         android:id="@+id/pfile"/>
-    <item android:title="Sense"
-        android:icon="@drawable/baseline_home_24"
-        android:id="@+id/sens" />
+
+    <item android:title="others"
+        android:icon="@drawable/baseline_portrait_24"
+        android:id="@+id/other" />
 </menu>

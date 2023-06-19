@@ -12,6 +12,6 @@
         android:id="@+id/btnlogout"
         android:layout_gravity="center"
         android:onClick="logout"
-        android:text="Sign Out" />
+        android:text="Wellcome" />
 
 </LinearLayout>

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.home ->replaceFragment(HomeFragment())
-
+                R.id.other ->replaceFragment(Others())
 
                 else->{
 
