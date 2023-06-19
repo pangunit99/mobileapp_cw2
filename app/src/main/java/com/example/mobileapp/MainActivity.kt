@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.home ->replaceFragment(HomeFragment())
                 R.id.other ->replaceFragment(Others())
+                R.id.method ->replaceFragment(JumppageFragment())
+
 
                 else->{
 
