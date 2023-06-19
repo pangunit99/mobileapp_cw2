@@ -1,19 +1,29 @@
 package com.example.mobileapp
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var  auth: FirebaseAuth
+    private var authStateListener: AuthStateListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
+        authStateListener = AuthStateListener { firebaseAuth ->
+            val user = firebaseAuth.currentUser
+            if (user == null) {
+                setContentView(R.layout.activity_login)
+            } else {
+                val intent= Intent(this,MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
         auth= FirebaseAuth.getInstance()
     }
 
@@ -35,8 +45,33 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    fun checklogin(){
+        authStateListener = AuthStateListener { firebaseAuth ->
+            val user = firebaseAuth.currentUser
+            if (user != null) {
+                val intent= Intent(this,MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+
+            }
+        }
+    }
     fun goToRegister(view:View){
         val intent= Intent(this,RegisterActivity::class.java)
         startActivity(intent)
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        auth.addAuthStateListener(authStateListener!!)
+    }
+
+    override fun onStop() {
+        if (authStateListener != null) {
+            auth.removeAuthStateListener(authStateListener!!)
+        }
+        super.onStop()
     }
 }
