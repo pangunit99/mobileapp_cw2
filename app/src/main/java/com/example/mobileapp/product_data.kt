@@ -1,6 +1,7 @@
 package com.example.mobileapp
 
-data class product_data(val itemName:String?=null,
-                        val Price:String?=null,
-                        val date:String?=null,
-                        val itemImg:String?=null)
+data class product_data(
+    var itemName:String?=null,
+    var Price:String?=null,
+    var date:String?=null,
+    var itemImg:String?="")
