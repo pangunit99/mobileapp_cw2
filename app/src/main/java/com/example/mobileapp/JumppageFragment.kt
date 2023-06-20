@@ -1,5 +1,6 @@
 package com.example.mobileapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -32,15 +33,24 @@ class JumppageFragment : Fragment() {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater!!.inflate(R.layout.fragment_jumppage, container, false)
+        val view =  inflater.inflate(R.layout.fragment_jumppage, container, false)
 
-        val btnlogout : Button = view.findViewById(R.id.btnlogouts)
-        btnlogout.setOnClickListener{
+        val add : Button = view.findViewById(R.id.add)
+        val showp : Button = view.findViewById(R.id.showp)
+
+        add.setOnClickListener{
+            val intent = Intent(activity, Addproduct::class.java)
+            FirebaseAuth.getInstance().signOut()
+            startActivity(intent)
+            activity?.finish()
+        }
+        showp.setOnClickListener{
             val intent = Intent(activity, Addproduct::class.java)
             FirebaseAuth.getInstance().signOut()
             startActivity(intent)
