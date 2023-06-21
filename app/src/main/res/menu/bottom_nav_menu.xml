@@ -10,7 +10,7 @@
         android:icon="@drawable/baseline_home_24"
         android:id="@+id/method"/>
 
-    <item android:title="Profile"
+    <item android:title="View"
         android:icon="@drawable/baseline_home_24"
         android:id="@+id/pfile"/>
 

@@ -46,13 +46,11 @@ class JumppageFragment : Fragment() {
 
         add.setOnClickListener{
             val intent = Intent(activity, Addproduct::class.java)
-            FirebaseAuth.getInstance().signOut()
             startActivity(intent)
             activity?.finish()
         }
         showp.setOnClickListener{
-            val intent = Intent(activity, Addproduct::class.java)
-            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(activity, upviewActivity::class.java)
             startActivity(intent)
             activity?.finish()
         }

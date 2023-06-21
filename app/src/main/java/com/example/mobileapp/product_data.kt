@@ -4,4 +4,6 @@ data class product_data(
     var itemName:String?=null,
     var Price:String?=null,
     var date:String?=null,
-    var itemImg:String?="")
+    var itemImg:String?=""){
+    constructor():this("","","","")
+}
