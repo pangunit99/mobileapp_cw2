@@ -39,23 +39,30 @@ class Addproduct : AppCompatActivity() {
         val REQUEST_IMAGE_CAPTURE = 1
         var REQUEST_SELECT_IMAGE = 2
     }
+
+    //use camera to get the image
     fun onCameraClicked(v : View){
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
     }
+
+    //get the image on phone
     fun onAlbumClicked(v : View) {
         val intent = Intent(
             Intent.ACTION_PICK,
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, REQUEST_SELECT_IMAGE)
     }
+
+    //load image on imageView
     override fun onActivityResult(requestCode: Int,
                                   resultCode: Int, data: Intent?) {
         val imageView = findViewById<ImageView>(R.id.imageView)
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val bitmap = data?.extras?.get("data") as Bitmap
             val bytes =ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,bytes)
+            //camera image bitmap to uri
+            bitmap.compress(Bitmap.CompressFormat.JPEG,300,bytes)
             val path = MediaStore.Images.Media.insertImage(applicationContext.contentResolver,bitmap,"val",null)
             val uri:Uri = Uri.parse(path)
             ImgerUri = uri
@@ -70,25 +77,31 @@ class Addproduct : AppCompatActivity() {
 
 
     fun onInsert(v: View){
+        // get all user input
         var itemName= findViewById<EditText>(R.id.edititem).getText().toString()
         var price = findViewById<EditText>(R.id.editprice).getText().toString()
         var date = findViewById<EditText>(R.id.editdate).getText().toString()
 
+        //processing animation
         val progressDialog = ProgressDialog(this)
         progressDialog.setMessage("inserting....")
         progressDialog.setCancelable(false)
         progressDialog.show()
 
+        //get fireplace saveplace
         db =FirebaseDatabase.getInstance().getReference("product")
+        //set the image name
         val formatter = SimpleDateFormat("yyyy_mm_dd_hh_mm_ss", Locale.getDefault())
         val now = Date();
         val fileName = formatter.format(now)
         val stroageReference = FirebaseStorage.getInstance().getReference("product/$fileName")
 
+        //upload image to firebase
         stroageReference.putFile(ImgerUri).
                 addOnSuccessListener {
                     Toast.makeText(this,"Successful",Toast.LENGTH_SHORT).show()
                     stroageReference.downloadUrl.addOnSuccessListener {
+                        //put all information to database
                         val uri =it
                         val product_data = product_data()
                         product_data.itemName = itemName

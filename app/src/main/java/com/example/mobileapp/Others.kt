@@ -33,7 +33,7 @@ class Others : Fragment() {
         }
     }
 
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +41,8 @@ class Others : Fragment() {
         // Inflate the layout for this fragment
         val v  = inflater!!.inflate(R.layout.fragment_others,container,false)
         val btnlogout : Button = v.findViewById(R.id.btnlogouts)
+
+        //Logout button
         btnlogout.setOnClickListener{
             val intent = Intent(activity, LoginActivity::class.java)
             FirebaseAuth.getInstance().signOut()

@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
         replaceFragment(HomeFragment())
+        //use nav to go to different Fragment
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.home ->replaceFragment(HomeFragment())

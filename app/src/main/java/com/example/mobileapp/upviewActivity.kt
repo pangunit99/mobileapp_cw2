@@ -1,5 +1,6 @@
 package com.example.mobileapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -31,6 +32,8 @@ class upviewActivity : AppCompatActivity() {
         view1.itemAnimator = DefaultItemAnimator()
         productArratlist = arrayListOf()
         fetchdata()
+
+        //recyclerView swip function delete record
         val helper = ItemTouchHelper(object  : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT){
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -52,9 +55,10 @@ class upviewActivity : AppCompatActivity() {
         })
         helper.attachToRecyclerView(view1)
 
-
     }
 
+
+    //get firebaseDatabase data put on RecyclerView
     fun fetchdata(){
         db = FirebaseDatabase.getInstance().getReference("product")
         Log.d("GET DATA", db.child("save").key.toString())
@@ -70,9 +74,14 @@ class upviewActivity : AppCompatActivity() {
             }
             var adapter = viewAdapter(this,productArratlist)
             view1.adapter= adapter
+
+            //RecyclerView click event
             adapter.setOnItemClickListener(object :viewAdapter.onItemClickListener{
                 override fun onItemClick(position: Int) {
                     Toast.makeText(this@upviewActivity,"Youclick on item key : ${list[position]}",Toast.LENGTH_SHORT).show()
+
+                    //click product go to update page
+                    val intent:Intent;
 
 
                 }

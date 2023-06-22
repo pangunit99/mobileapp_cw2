@@ -34,6 +34,8 @@ class JumppageFragment : Fragment() {
     }
 
     @SuppressLint("MissingInflatedId")
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,11 +46,14 @@ class JumppageFragment : Fragment() {
         val add : Button = view.findViewById(R.id.add)
         val showp : Button = view.findViewById(R.id.showp)
 
+        //go to Create new product page
         add.setOnClickListener{
             val intent = Intent(activity, Addproduct::class.java)
             startActivity(intent)
             activity?.finish()
         }
+
+        //go to view all product page
         showp.setOnClickListener{
             val intent = Intent(activity, upviewActivity::class.java)
             startActivity(intent)

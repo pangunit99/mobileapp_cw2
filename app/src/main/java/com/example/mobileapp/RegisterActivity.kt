@@ -20,6 +20,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
 
+    //register account
     fun register(view: View){
         val editTextEmailAddress  = findViewById<EditText>(R.id.editTextEmailAddress)
         val editTextPassword = findViewById<EditText>(R.id.editTextPassword)

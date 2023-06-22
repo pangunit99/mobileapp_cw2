@@ -15,8 +15,10 @@ class LoginActivity : AppCompatActivity() {
     private var authStateListener: AuthStateListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //record user login
         authStateListener = AuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
+            //if no login show login page else
             if (user == null) {
                 setContentView(R.layout.activity_login)
             } else {
@@ -29,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     fun login(view: View){
+        //Login function
         val editTextEmailAddress  = findViewById<EditText>(R.id.editTextEmailAddress)
         val editTextPassword = findViewById<EditText>(R.id.editTextPassword)
         val email=editTextEmailAddress.text.toString()
