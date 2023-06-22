@@ -66,7 +66,6 @@ class upviewActivity : AppCompatActivity() {
             for (doc in documents.children){
                 val ky = doc.key.toString()
                 list.add(ky)
-                Log.d("GET DATA", doc.key.toString())
 
                 val product = doc.getValue(product_data::class.java)
                 productArratlist.add(product!!)
@@ -81,8 +80,10 @@ class upviewActivity : AppCompatActivity() {
                     Toast.makeText(this@upviewActivity,"Youclick on item key : ${list[position]}",Toast.LENGTH_SHORT).show()
 
                     //click product go to update page
-                    val intent:Intent;
-
+                    val intent = Intent(this@upviewActivity, modifyActivity::class.java)
+                    intent.putExtra("key", "${list[position]}")
+                    startActivity(intent)
+                    finish()
 
                 }
             })

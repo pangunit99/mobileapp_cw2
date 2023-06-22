@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Mobileapp"
         tools:targetApi="31">
         <activity
+            android:name=".modifyActivity"
+            android:exported="false" />
+        <activity
             android:name=".upviewActivity"
             android:exported="false" />
         <activity
