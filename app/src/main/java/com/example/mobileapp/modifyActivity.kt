@@ -28,7 +28,7 @@ class modifyActivity : AppCompatActivity() {
     private lateinit var db: DatabaseReference
     private lateinit var binding: ActivityMainBinding
     lateinit var ImgerUri:Uri
-
+    var count = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modify)
@@ -49,8 +49,9 @@ class modifyActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.editdate).setText("${it.getValue()}").toString()
         }
         db.child("save").child("$keyvalue").child("itemImg").get().addOnSuccessListener {
-            Glide.with(this).load(it.getValue()).into(findViewById<ImageView>(R.id.imageView))
-
+            if (it.getValue()!=""){
+                Glide.with(this).load(it.getValue()).into(findViewById<ImageView>(R.id.imageView))
+            }
         }
 
 
@@ -80,6 +81,7 @@ class modifyActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int,
                                   resultCode: Int, data: Intent?) {
         val imageView = findViewById<ImageView>(R.id.imageView)
+        count+=1
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val bitmap = data?.extras?.get("data") as Bitmap
             val bytes = ByteArrayOutputStream()
@@ -119,27 +121,40 @@ class modifyActivity : AppCompatActivity() {
         val stroageReference = FirebaseStorage.getInstance().getReference("product/$fileName")
 
         //upload image to firebase
-        stroageReference.putFile(ImgerUri).
-        addOnSuccessListener {
-            Toast.makeText(this,"Successful", Toast.LENGTH_SHORT).show()
-            stroageReference.downloadUrl.addOnSuccessListener {
-                //put all information to database
-                val keyvalue = intent.getStringExtra("key")
-                val uri =it
-                val product_data = product_data()
-                product_data.itemName = itemName
-                product_data.Price = price
-                product_data.date = date
-                product_data.itemImg = uri.toString()
-                db.child("save").child("$keyvalue").push().setValue(product_data)
+        if(count!=1) {
+            stroageReference.putFile(ImgerUri).addOnSuccessListener {
+                Toast.makeText(this, "Successful", Toast.LENGTH_SHORT).show()
+                stroageReference.downloadUrl.addOnSuccessListener {
+                    //put all information to database
+                    val keyvalue = intent.getStringExtra("key")
+                    val uri = it
+                    val product_data = product_data()
+                    product_data.itemName = itemName
+                    product_data.Price = price
+                    product_data.date = date
+                    product_data.itemImg = uri.toString()
+                    db.child("save").child("$keyvalue").setValue(product_data)
+                }
+                if (progressDialog.isShowing) progressDialog.dismiss()
+
+            }.addOnFailureListener {
+                if (progressDialog.isShowing) progressDialog.dismiss()
+                Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
             }
-            if(progressDialog.isShowing) progressDialog.dismiss()
+        }else{
+            val key = intent.getStringExtra("key")
+            val product_data = product_data()
+            product_data.itemName = itemName
+            product_data.Price = price
+            product_data.date = date
+            db.child("save").child("$key").child("itemImg").get().addOnSuccessListener {
+                Log.d("IMGURL","${it.getValue().toString()}")
+                product_data.itemImg = it.getValue().toString()
+                db.child("save").child("$key").setValue(product_data)
+            }
 
-        }.addOnFailureListener{
-            if(progressDialog.isShowing) progressDialog.dismiss()
-            Toast.makeText(this,"failed", Toast.LENGTH_SHORT).show()
+            if (progressDialog.isShowing) progressDialog.dismiss()
         }
-
 
 
     }
