@@ -62,7 +62,7 @@ class Addproduct : AppCompatActivity() {
             val bitmap = data?.extras?.get("data") as Bitmap
             val bytes =ByteArrayOutputStream()
             //camera image bitmap to uri
-            bitmap.compress(Bitmap.CompressFormat.JPEG,300,bytes)
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,bytes)
             val path = MediaStore.Images.Media.insertImage(applicationContext.contentResolver,bitmap,"val",null)
             val uri:Uri = Uri.parse(path)
             ImgerUri = uri

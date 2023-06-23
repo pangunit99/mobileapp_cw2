@@ -32,7 +32,7 @@ class upviewActivity : AppCompatActivity() {
         view1.itemAnimator = DefaultItemAnimator()
         productArratlist = arrayListOf()
         fetchdata()
-
+        db = FirebaseDatabase.getInstance().getReference("product")
         //recyclerView swip function delete record
         val helper = ItemTouchHelper(object  : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT){
             override fun onMove(
@@ -47,7 +47,12 @@ class upviewActivity : AppCompatActivity() {
                 if(direction == ItemTouchHelper.RIGHT) {
                     val item = viewHolder.adapterPosition
                     productArratlist.removeAt(item)
+                    //remove data on database
+                    val removekey = list[item]
+                    db.child("save").child("$removekey").ref.removeValue()
+                    //remove product key on array
                     list.removeAt(item)
+                    //remove.ref.removeValue()
                     view1.adapter?.notifyDataSetChanged()
                 }
             }
