@@ -7,9 +7,9 @@
 
     <!-- Button centering in screen -->
     <Button
+        android:id="@+id/btnlogouts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnlogouts"
         android:layout_gravity="center"
         android:onClick="logout"
         android:text="Sign Out" />
