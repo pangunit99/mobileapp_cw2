@@ -88,7 +88,6 @@ class upviewActivity : AppCompatActivity() {
                     val intent = Intent(this@upviewActivity, modifyActivity::class.java)
                     intent.putExtra("key", "${list[position]}")
                     startActivity(intent)
-                    finish()
 
                 }
             })

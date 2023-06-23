@@ -111,11 +111,14 @@ class Addproduct : AppCompatActivity() {
                         db.child("save").push().setValue(product_data)
                     }
                     if(progressDialog.isShowing) progressDialog.dismiss()
+                    finish()
 
                 }.addOnFailureListener{
                     if(progressDialog.isShowing) progressDialog.dismiss()
             Toast.makeText(this,"failed",Toast.LENGTH_SHORT).show()
+
         }
+
 
 
 
