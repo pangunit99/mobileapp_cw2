@@ -1,10 +1,12 @@
 package com.example.mobileapp
 
+import android.R.attr.key
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.location.*
 import java.util.*
 
@@ -46,12 +49,6 @@ class HomeFragment : Fragment() {
 
 
     }
-
-    private fun checkpermissiom():Boolean{
-
-        return false
-    }
-
 
 
     override fun onCreateView(
@@ -123,6 +120,13 @@ class HomeFragment : Fragment() {
                         showlocation()
                     } }, Looper.getMainLooper())
 
+        button.setOnClickListener{
+            val location = fragment_showmap()
+            val transition:FragmentTransaction = requireFragmentManager().beginTransaction()
+            transition.replace(R.id.mainlayout,location)
+            transition.commit()
+        }
+
         return view;
     }
 
@@ -166,6 +170,7 @@ class HomeFragment : Fragment() {
 
         //show the store location
         if(dist < shop3){
+
             try{
                 val addresses = mGeocoder!!.getFromLocation(
                     shop1_lat,shop1_lon,1

@@ -7,11 +7,11 @@
         android:titleCondensed="Home" />
 
     <item android:title="Method"
-        android:icon="@drawable/baseline_home_24"
+        android:icon="@drawable/baseline_format_list_bulleted_24"
         android:id="@+id/method"/>
 
     <item android:title="View"
-        android:icon="@drawable/baseline_home_24"
+        android:icon="@drawable/baseline_shopping_cart_24"
         android:id="@+id/uview"/>
 
     <item android:title="others"
