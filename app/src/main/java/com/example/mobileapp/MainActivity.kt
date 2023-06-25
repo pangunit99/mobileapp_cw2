@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.home ->replaceFragment(HomeFragment())
                 R.id.other ->replaceFragment(Others())
                 R.id.method ->replaceFragment(JumppageFragment())
-
+                R.id.uview ->replaceFragment(userView())
 
                 else->{
 

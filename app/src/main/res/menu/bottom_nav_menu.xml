@@ -12,7 +12,7 @@
 
     <item android:title="View"
         android:icon="@drawable/baseline_home_24"
-        android:id="@+id/pfile"/>
+        android:id="@+id/uview"/>
 
     <item android:title="others"
         android:icon="@drawable/baseline_portrait_24"
