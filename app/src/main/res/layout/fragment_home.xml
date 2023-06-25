@@ -5,13 +5,58 @@
     android:orientation="vertical"
     android:gravity="center" >
 
+
     <!-- Button centering in screen -->
-    <Button
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="272dp"
+        android:src="@drawable/_1685449807_e4ec0206_progressive"
+
+        />
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnlogout"
-        android:layout_gravity="center"
-        android:onClick="logout"
-        android:text="Wellcome" />
+        android:text="See the store Location on map!"
+        android:textSize="24sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="103dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Sheung wan" />
+
+        <TextView
+            android:id="@+id/nostr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="           "
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/bt_location2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Yu ma Day" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Store"
+        android:text="Nearest Store Location"
+        android:textSize="24sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Neareststore"
+        android:text="Unlist"
+        android:textSize="24sp"/>
 
 </LinearLayout>

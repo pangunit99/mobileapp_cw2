@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.mobileapp.R.id.bt_location
 import com.google.android.gms.location.*
 import java.util.*
 
@@ -33,12 +34,6 @@ private const val ARG_PARAM2 = "param2"
  */
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private lateinit var  client: FusedLocationProviderClient
-    private lateinit var button:Button
-    private lateinit var tv1:TextView
-    private lateinit var tv2:TextView
 
     protected lateinit var mLastLocation: Location
     protected lateinit var mLocationRequest: LocationRequest
@@ -58,10 +53,9 @@ class HomeFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_home,container,false)
-        val tv1 = view.findViewById<TextView>(R.id.tv_latitude)
-        val tv2 = view.findViewById<TextView>(R.id.tv_longitude)
         mGeocoder = Geocoder(context)
-        val button = view.findViewById<Button>(R.id.bt_location)
+        val button = view.findViewById<Button>(bt_location)
+        val location2 = view.findViewById<Button>(R.id.bt_location2)
 
         val locationPermissionRequest = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions(),
@@ -74,13 +68,10 @@ class HomeFragment : Fragment() {
                 )
                 if (fineLocationGranted != null && fineLocationGranted) {
                     // permissionOk = true;
-                    tv1!!.text = "permission granted"
                 } else if (coarseLocationGranted != null && coarseLocationGranted) {
                     // permissionOk = true;
-                    tv1!!.text = "permission granted"
                 } else {
                     // No location access granted.
-                    tv1!!.text = "permission not granted"
                 }
 
             }
@@ -115,13 +106,20 @@ class HomeFragment : Fragment() {
                 object : LocationCallback(){
                     override fun onLocationResult(result: LocationResult) {
                         mLastLocation = result.lastLocation
-                        tv1!!.text = mLastLocation!!.latitude.toString()
-                        tv2!!.text = mLastLocation!!.longitude.toString()
+                        mLastLocation!!.latitude.toString()
+                        mLastLocation!!.longitude.toString()
                         showlocation()
                     } }, Looper.getMainLooper())
 
         button.setOnClickListener{
             val location = fragment_showmap()
+            val transition:FragmentTransaction = requireFragmentManager().beginTransaction()
+            transition.replace(R.id.mainlayout,location)
+            transition.commit()
+        }
+
+        location2.setOnClickListener{
+            val location = nextmap()
             val transition:FragmentTransaction = requireFragmentManager().beginTransaction()
             transition.replace(R.id.mainlayout,location)
             transition.commit()

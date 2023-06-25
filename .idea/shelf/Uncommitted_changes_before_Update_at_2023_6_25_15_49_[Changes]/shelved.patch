@@ -1,0 +1,408 @@
+Index: app/src/main/res/layout/fragment_home.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"fill_parent\"\r\n    android:layout_height=\"fill_parent\"\r\n    android:orientation=\"vertical\"\r\n    android:gravity=\"center\" >\r\n\r\n    <!-- Button centering in screen -->\r\n    <Button\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:id=\"@+id/bt_location\"\r\n        android:layout_gravity=\"center\"\r\n        android:onClick=\"logout\"\r\n        android:text=\"Wellcome\" />\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Latitude\"\r\n        android:textSize=\"32sp\"\r\n        android:textStyle=\"bold\"\r\n        android:textColor=\"@color/black\"\r\n        android:layout_marginTop=\"16dp\"/>\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:id=\"@+id/tv_latitude\"\r\n        android:text=\"0.0\"\r\n        android:textSize=\"24sp\"/>\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Longitude\"\r\n        android:textSize=\"32sp\"\r\n        android:textStyle=\"bold\"\r\n        android:textColor=\"@color/black\"\r\n        android:layout_marginTop=\"16dp\"/>\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:id=\"@+id/tv_longitude\"\r\n        android:text=\"0.0\"\r\n        android:textSize=\"24sp\"/>\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:id=\"@+id/Store\"\r\n        android:text=\"Neareststore\"\r\n        android:textSize=\"24sp\"/>\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:id=\"@+id/Neareststore\"\r\n        android:text=\"Unlist\"\r\n        android:textSize=\"24sp\"/>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_home.xml b/app/src/main/res/layout/fragment_home.xml
+--- a/app/src/main/res/layout/fragment_home.xml	(revision fe67fb432fea9227528e47f1ad4adef94a7cbcf3)
++++ b/app/src/main/res/layout/fragment_home.xml	(date 1687678385209)
+@@ -9,54 +9,9 @@
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:id="@+id/bt_location"
++        android:id="@+id/btnlogout"
+         android:layout_gravity="center"
+         android:onClick="logout"
+         android:text="Wellcome" />
+ 
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Latitude"
+-        android:textSize="32sp"
+-        android:textStyle="bold"
+-        android:textColor="@color/black"
+-        android:layout_marginTop="16dp"/>
+-
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:id="@+id/tv_latitude"
+-        android:text="0.0"
+-        android:textSize="24sp"/>
+-
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Longitude"
+-        android:textSize="32sp"
+-        android:textStyle="bold"
+-        android:textColor="@color/black"
+-        android:layout_marginTop="16dp"/>
+-
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:id="@+id/tv_longitude"
+-        android:text="0.0"
+-        android:textSize="24sp"/>
+-
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:id="@+id/Store"
+-        android:text="Neareststore"
+-        android:textSize="24sp"/>
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:id="@+id/Neareststore"
+-        android:text="Unlist"
+-        android:textSize="24sp"/>
+-
+ </LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/mobileapp/HomeFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.mobileapp\r\n\r\nimport android.content.pm.PackageManager\r\nimport android.location.Geocoder\r\nimport android.location.Location\r\nimport android.os.Bundle\r\nimport android.os.Looper\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Button\r\nimport android.widget.TextView\r\nimport androidx.activity.result.ActivityResultCallback\r\nimport androidx.activity.result.contract.ActivityResultContracts\r\nimport androidx.core.app.ActivityCompat\r\nimport androidx.fragment.app.Fragment\r\nimport com.google.android.gms.location.*\r\nimport java.util.*\r\n\r\n\r\n// TODO: Rename parameter arguments, choose names that match\r\n// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER\r\nprivate const val ARG_PARAM1 = \"param1\"\r\nprivate const val ARG_PARAM2 = \"param2\"\r\n\r\n/**\r\n * A simple [Fragment] subclass.\r\n * Use the [HomeFragment.newInstance] factory method to\r\n * create an instance of this fragment.\r\n */\r\nclass HomeFragment : Fragment() {\r\n    // TODO: Rename and change types of parameters\r\n    private var param1: String? = null\r\n    private var param2: String? = null\r\n    private lateinit var  client: FusedLocationProviderClient\r\n    private lateinit var button:Button\r\n    private lateinit var tv1:TextView\r\n    private lateinit var tv2:TextView\r\n\r\n    protected lateinit var mLastLocation: Location\r\n    protected lateinit var mLocationRequest: LocationRequest\r\n    protected lateinit var mGeocoder: Geocoder\r\n    protected lateinit var mLocationProvider: FusedLocationProviderClient\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n\r\n\r\n    }\r\n\r\n    private fun checkpermissiom():Boolean{\r\n\r\n        return false\r\n    }\r\n\r\n\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n\r\n        // Inflate the layout for this fragment\r\n        val view = inflater!!.inflate(R.layout.fragment_home,container,false)\r\n        val tv1 = view.findViewById<TextView>(R.id.tv_latitude)\r\n        val tv2 = view.findViewById<TextView>(R.id.tv_longitude)\r\n        mGeocoder = Geocoder(context)\r\n        val button = view.findViewById<Button>(R.id.bt_location)\r\n\r\n        val locationPermissionRequest = registerForActivityResult(\r\n            ActivityResultContracts.RequestMultiplePermissions(),\r\n            ActivityResultCallback<Map<String, Boolean>> { result: Map<String, Boolean?> ->\r\n                val fineLocationGranted = result.getOrDefault(\r\n                    android.Manifest.permission.ACCESS_FINE_LOCATION, false\r\n                )\r\n                val coarseLocationGranted = result.getOrDefault(\r\n                    android.Manifest.permission.ACCESS_COARSE_LOCATION, false\r\n                )\r\n                if (fineLocationGranted != null && fineLocationGranted) {\r\n                    // permissionOk = true;\r\n                    tv1!!.text = \"permission granted\"\r\n                } else if (coarseLocationGranted != null && coarseLocationGranted) {\r\n                    // permissionOk = true;\r\n                    tv1!!.text = \"permission granted\"\r\n                } else {\r\n                    // No location access granted.\r\n                    tv1!!.text = \"permission not granted\"\r\n                }\r\n\r\n            }\r\n        )\r\n        locationPermissionRequest.launch(\r\n            arrayOf(\r\n                android.Manifest.permission.ACCESS_FINE_LOCATION,\r\n                android.Manifest.permission.ACCESS_COARSE_LOCATION\r\n            )\r\n        )\r\n\r\n        mLocationRequest = LocationRequest()\r\n        mLocationRequest!!.interval = 10\r\n        mLocationRequest!!.fastestInterval = 5\r\n        mLocationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY\r\n\r\n\r\n            mLocationProvider = LocationServices.getFusedLocationProviderClient(view.context)\r\n            if (ActivityCompat.checkSelfPermission(\r\n                    view.context,\r\n                    android.Manifest.permission.ACCESS_FINE_LOCATION\r\n                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(\r\n                    view.context,\r\n                    android.Manifest.permission.ACCESS_COARSE_LOCATION\r\n                ) != PackageManager.PERMISSION_GRANTED\r\n            ) {\r\n\r\n\r\n\r\n            }\r\n            mLocationProvider.requestLocationUpdates(mLocationRequest,\r\n                object : LocationCallback(){\r\n                    override fun onLocationResult(result: LocationResult) {\r\n                        mLastLocation = result.lastLocation\r\n                        tv1!!.text = mLastLocation!!.latitude.toString()\r\n                        tv2!!.text = mLastLocation!!.longitude.toString()\r\n                        showlocation()\r\n                    } }, Looper.getMainLooper())\r\n\r\n        return view;\r\n    }\r\n\r\n\r\n    private fun showlocation(){\r\n        val Neareststore = view?.findViewById<TextView>(R.id.Neareststore)\r\n        //setting the store lat lon in sheung wan\r\n        val shop1_lat = 22.28619944225652\r\n        val shop1_lon = 114.15242235869407\r\n\r\n        //setting the store lat lon in mongkok\r\n        val shop2_lat = 22.3138613135203\r\n        val shop2_lon = 114.17081351822735\r\n\r\n        //cal user\r\n        val theta: Double = mLastLocation!!.longitude - shop1_lon\r\n\r\n        val shop2: Double = mLastLocation!!.longitude - shop2_lon\r\n\r\n        var shop3 = (Math.sin(deg2rad(mLastLocation!!.latitude))\r\n                * Math.sin(deg2rad(shop1_lat))\r\n                + (Math.cos(deg2rad(mLastLocation!!.latitude))\r\n                * Math.cos(deg2rad(shop1_lat))\r\n                * Math.cos(deg2rad(shop2))))\r\n\r\n        var dist = (Math.sin(deg2rad(mLastLocation!!.latitude))\r\n                * Math.sin(deg2rad(shop1_lat))\r\n                + (Math.cos(deg2rad(mLastLocation!!.latitude))\r\n                * Math.cos(deg2rad(shop1_lat))\r\n                * Math.cos(deg2rad(theta))))\r\n\r\n        dist = Math.acos(dist)\r\n        dist = rad2deg(dist)\r\n        dist = dist * 60 * 1.1515\r\n\r\n        shop3 = Math.acos(shop3)\r\n        shop3 = rad2deg(shop3)\r\n        shop3 = shop3 * 60 * 1.1515\r\n\r\n\r\n\r\n        //show the store location\r\n        if(dist < shop3){\r\n            try{\r\n                val addresses = mGeocoder!!.getFromLocation(\r\n                    shop1_lat,shop1_lon,1\r\n                )\r\n\r\n                if(addresses!!.size ==1){\r\n                    val address = addresses[0]\r\n                    val addressLines = StringBuilder()\r\n                    if(address.maxAddressLineIndex > 0)\r\n                        for (i in 0 until address.maxAddressLineIndex){\r\n                            addressLines.append(\"\"\"${address.getAddressLine(i)}\"\"\".trimIndent())\r\n                        }else {\r\n                        addressLines.append(address.getAddressLine(0))\r\n                    }\r\n                    Neareststore!!.text = addressLines\r\n                }\r\n            }catch(e:Exception){\r\n\r\n            }\r\n        }else{\r\n            try{\r\n                val addresses = mGeocoder!!.getFromLocation(\r\n                    shop2_lat,shop2_lon,1\r\n                )\r\n\r\n                if(addresses!!.size ==1){\r\n                    val address = addresses[0]\r\n                    val addressLines = StringBuilder()\r\n                    if(address.maxAddressLineIndex > 0)\r\n                        for (i in 0 until address.maxAddressLineIndex){\r\n                            addressLines.append(\"\"\"${address.getAddressLine(i)}\"\"\".trimIndent())\r\n                        }else {\r\n                        addressLines.append(address.getAddressLine(0))\r\n                    }\r\n                    Neareststore!!.text = addressLines\r\n                }\r\n            }catch(e:Exception){\r\n\r\n            }\r\n        }\r\n\r\n    }\r\n    private fun deg2rad(deg: Double): Double {\r\n        return deg * Math.PI / 180.0\r\n    }\r\n\r\n    private fun rad2deg(rad: Double): Double {\r\n        return rad * 180.0 / Math.PI\r\n    }\r\n\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/mobileapp/HomeFragment.kt b/app/src/main/java/com/example/mobileapp/HomeFragment.kt
+--- a/app/src/main/java/com/example/mobileapp/HomeFragment.kt	(revision fe67fb432fea9227528e47f1ad4adef94a7cbcf3)
++++ b/app/src/main/java/com/example/mobileapp/HomeFragment.kt	(date 1687678439644)
+@@ -1,21 +1,15 @@
+ package com.example.mobileapp
+ 
+-import android.content.pm.PackageManager
+-import android.location.Geocoder
+-import android.location.Location
++import android.app.FragmentManager
++import android.content.Intent
+ import android.os.Bundle
+-import android.os.Looper
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
+ import android.widget.Button
+-import android.widget.TextView
+-import androidx.activity.result.ActivityResultCallback
+-import androidx.activity.result.contract.ActivityResultContracts
+-import androidx.core.app.ActivityCompat
+ import androidx.fragment.app.Fragment
+-import com.google.android.gms.location.*
+-import java.util.*
++import androidx.fragment.app.FragmentTransaction
++import com.google.firebase.auth.FirebaseAuth
+ 
+ 
+ // TODO: Rename parameter arguments, choose names that match
+@@ -32,190 +26,32 @@
+     // TODO: Rename and change types of parameters
+     private var param1: String? = null
+     private var param2: String? = null
+-    private lateinit var  client: FusedLocationProviderClient
+-    private lateinit var button:Button
+-    private lateinit var tv1:TextView
+-    private lateinit var tv2:TextView
+-
+-    protected lateinit var mLastLocation: Location
+-    protected lateinit var mLocationRequest: LocationRequest
+-    protected lateinit var mGeocoder: Geocoder
+-    protected lateinit var mLocationProvider: FusedLocationProviderClient
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+ 
+-
+-    }
+-
+-    private fun checkpermissiom():Boolean{
+-
+-        return false
++        arguments?.let {
++            param1 = it.getString(ARG_PARAM1)
++            param2 = it.getString(ARG_PARAM2)
++        }
+     }
+-
+-
+ 
+     override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+     ): View? {
+-
+         // Inflate the layout for this fragment
+         val view = inflater!!.inflate(R.layout.fragment_home,container,false)
+-        val tv1 = view.findViewById<TextView>(R.id.tv_latitude)
+-        val tv2 = view.findViewById<TextView>(R.id.tv_longitude)
+-        mGeocoder = Geocoder(context)
+-        val button = view.findViewById<Button>(R.id.bt_location)
+-
+-        val locationPermissionRequest = registerForActivityResult(
+-            ActivityResultContracts.RequestMultiplePermissions(),
+-            ActivityResultCallback<Map<String, Boolean>> { result: Map<String, Boolean?> ->
+-                val fineLocationGranted = result.getOrDefault(
+-                    android.Manifest.permission.ACCESS_FINE_LOCATION, false
+-                )
+-                val coarseLocationGranted = result.getOrDefault(
+-                    android.Manifest.permission.ACCESS_COARSE_LOCATION, false
+-                )
+-                if (fineLocationGranted != null && fineLocationGranted) {
+-                    // permissionOk = true;
+-                    tv1!!.text = "permission granted"
+-                } else if (coarseLocationGranted != null && coarseLocationGranted) {
+-                    // permissionOk = true;
+-                    tv1!!.text = "permission granted"
+-                } else {
+-                    // No location access granted.
+-                    tv1!!.text = "permission not granted"
+-                }
+-
+-            }
+-        )
+-        locationPermissionRequest.launch(
+-            arrayOf(
+-                android.Manifest.permission.ACCESS_FINE_LOCATION,
+-                android.Manifest.permission.ACCESS_COARSE_LOCATION
+-            )
+-        )
+-
+-        mLocationRequest = LocationRequest()
+-        mLocationRequest!!.interval = 10
+-        mLocationRequest!!.fastestInterval = 5
+-        mLocationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+-
+-
+-            mLocationProvider = LocationServices.getFusedLocationProviderClient(view.context)
+-            if (ActivityCompat.checkSelfPermission(
+-                    view.context,
+-                    android.Manifest.permission.ACCESS_FINE_LOCATION
+-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+-                    view.context,
+-                    android.Manifest.permission.ACCESS_COARSE_LOCATION
+-                ) != PackageManager.PERMISSION_GRANTED
+-            ) {
+-
+-
+-
+-            }
+-            mLocationProvider.requestLocationUpdates(mLocationRequest,
+-                object : LocationCallback(){
+-                    override fun onLocationResult(result: LocationResult) {
+-                        mLastLocation = result.lastLocation
+-                        tv1!!.text = mLastLocation!!.latitude.toString()
+-                        tv2!!.text = mLastLocation!!.longitude.toString()
+-                        showlocation()
+-                    } }, Looper.getMainLooper())
++        val btnlogout :Button = view.findViewById(R.id.btnlogout)
++        btnlogout.setOnClickListener{
++            val intent = Intent(activity, LoginActivity::class.java)
++            FirebaseAuth.getInstance().signOut()
++            startActivity(intent)
++            activity?.finish()
++        }
+ 
+         return view;
+     }
+ 
+ 
+-    private fun showlocation(){
+-        val Neareststore = view?.findViewById<TextView>(R.id.Neareststore)
+-        //setting the store lat lon in sheung wan
+-        val shop1_lat = 22.28619944225652
+-        val shop1_lon = 114.15242235869407
+-
+-        //setting the store lat lon in mongkok
+-        val shop2_lat = 22.3138613135203
+-        val shop2_lon = 114.17081351822735
+-
+-        //cal user
+-        val theta: Double = mLastLocation!!.longitude - shop1_lon
+-
+-        val shop2: Double = mLastLocation!!.longitude - shop2_lon
+-
+-        var shop3 = (Math.sin(deg2rad(mLastLocation!!.latitude))
+-                * Math.sin(deg2rad(shop1_lat))
+-                + (Math.cos(deg2rad(mLastLocation!!.latitude))
+-                * Math.cos(deg2rad(shop1_lat))
+-                * Math.cos(deg2rad(shop2))))
+-
+-        var dist = (Math.sin(deg2rad(mLastLocation!!.latitude))
+-                * Math.sin(deg2rad(shop1_lat))
+-                + (Math.cos(deg2rad(mLastLocation!!.latitude))
+-                * Math.cos(deg2rad(shop1_lat))
+-                * Math.cos(deg2rad(theta))))
+-
+-        dist = Math.acos(dist)
+-        dist = rad2deg(dist)
+-        dist = dist * 60 * 1.1515
+-
+-        shop3 = Math.acos(shop3)
+-        shop3 = rad2deg(shop3)
+-        shop3 = shop3 * 60 * 1.1515
+-
+-
+-
+-        //show the store location
+-        if(dist < shop3){
+-            try{
+-                val addresses = mGeocoder!!.getFromLocation(
+-                    shop1_lat,shop1_lon,1
+-                )
+-
+-                if(addresses!!.size ==1){
+-                    val address = addresses[0]
+-                    val addressLines = StringBuilder()
+-                    if(address.maxAddressLineIndex > 0)
+-                        for (i in 0 until address.maxAddressLineIndex){
+-                            addressLines.append("""${address.getAddressLine(i)}""".trimIndent())
+-                        }else {
+-                        addressLines.append(address.getAddressLine(0))
+-                    }
+-                    Neareststore!!.text = addressLines
+-                }
+-            }catch(e:Exception){
+-
+-            }
+-        }else{
+-            try{
+-                val addresses = mGeocoder!!.getFromLocation(
+-                    shop2_lat,shop2_lon,1
+-                )
+-
+-                if(addresses!!.size ==1){
+-                    val address = addresses[0]
+-                    val addressLines = StringBuilder()
+-                    if(address.maxAddressLineIndex > 0)
+-                        for (i in 0 until address.maxAddressLineIndex){
+-                            addressLines.append("""${address.getAddressLine(i)}""".trimIndent())
+-                        }else {
+-                        addressLines.append(address.getAddressLine(0))
+-                    }
+-                    Neareststore!!.text = addressLines
+-                }
+-            }catch(e:Exception){
+-
+-            }
+-        }
+-
+-    }
+-    private fun deg2rad(deg: Double): Double {
+-        return deg * Math.PI / 180.0
+-    }
+-
+-    private fun rad2deg(rad: Double): Double {
+-        return rad * 180.0 / Math.PI
+-    }
+-
+-
+ 
+ }
+\ No newline at end of file
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision fe67fb432fea9227528e47f1ad4adef94a7cbcf3)
++++ /dev/null	(revision fe67fb432fea9227528e47f1ad4adef94a7cbcf3)
+@@ -1,3 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+Index: .idea/kotlinc.xml
+===================================================================
+diff --git a/.idea/kotlinc.xml b/.idea/kotlinc.xml
+deleted file mode 100644
+--- a/.idea/kotlinc.xml	(revision fe67fb432fea9227528e47f1ad4adef94a7cbcf3)
++++ /dev/null	(revision fe67fb432fea9227528e47f1ad4adef94a7cbcf3)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="KotlinJpsPluginSettings">
+-    <option name="version" value="1.8.20" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <bytecodeTargetLevel target=\"17\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	(revision fe67fb432fea9227528e47f1ad4adef94a7cbcf3)
++++ b/.idea/compiler.xml	(date 1687678370704)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="CompilerConfiguration">
+-    <bytecodeTargetLevel target="17" />
++    <bytecodeTargetLevel target="11" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision fe67fb432fea9227528e47f1ad4adef94a7cbcf3)
++++ b/.idea/vcs.xml	(date 1687678370708)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"LOCAL\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"jbr-17\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision fe67fb432fea9227528e47f1ad4adef94a7cbcf3)
++++ b/.idea/gradle.xml	(date 1687678370705)
+@@ -5,9 +5,8 @@
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+         <option name="testRunner" value="GRADLE" />
+-        <option name="distributionType" value="LOCAL" />
++        <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="gradleJvm" value="jbr-17" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" project-jdk-name=\"jbr-17\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision fe67fb432fea9227528e47f1ad4adef94a7cbcf3)
++++ b/.idea/misc.xml	(date 1687678475918)
+@@ -1,6 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
