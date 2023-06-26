@@ -48,18 +48,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun checklogin(){
-        authStateListener = AuthStateListener { firebaseAuth ->
-            val user = firebaseAuth.currentUser
-            if (user != null) {
-                val intent= Intent(this,MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-
-            }
-        }
-    }
     fun goToRegister(view:View){
         val intent= Intent(this,RegisterActivity::class.java)
         startActivity(intent)
