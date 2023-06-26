@@ -47,11 +47,5 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
 
     }
-
-
-    fun btnlogout(view: View){
-        val intent= Intent(this,LoginActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
+    
 }
